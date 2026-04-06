@@ -294,7 +294,7 @@ export default function ContactPage() {
                         <input
                           type={field.type}
                           placeholder={field.placeholder}
-                          value={(form as Record<string, string>)[field.key]}
+                          value={(form as unknown as Record<string, string>)[field.key]}
                           onChange={(e) => update(field.key, e.target.value)}
                           className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-platinum placeholder:text-platinum-dim/40 focus:outline-none focus:border-[var(--service-accent)] transition-colors"
                         />
