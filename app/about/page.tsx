@@ -1,23 +1,41 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {
+  Sparkles, Users, Calculator, Globe, Brain, Rocket, Award,
+  Focus, Zap, Eye, BarChart3,
+} from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 import Link from "next/link";
 
-const TIMELINE = [
-  { year: "2018", title: "The Spark", desc: "LucenEdge was founded with a single belief: that most businesses are underserved by specialists who can't see the whole picture." },
-  { year: "2019", title: "First 10 Clients", desc: "Rapid growth through referrals alone. Our first AI/ML project generated $400K in savings for a logistics client. Word spread fast." },
-  { year: "2020", title: "Accounting Practice Launched", desc: "Recognizing that technical excellence alone wasn't enough — we added financial services to close the loop between tech investment and business outcomes." },
-  { year: "2021", title: "Staffing Division Opens", desc: "Client demand for talent recommendations led us to build a formal staffing practice. 40 placements in year one." },
-  { year: "2022", title: "Global Expansion", desc: "Opened delivery centers in 3 new countries. Expanded to serve clients across North America, Europe, and the Middle East." },
-  { year: "2023", title: "AI Practice Matures", desc: "Launched dedicated AI/ML practice with 12 PhD-level researchers. 47 production AI systems deployed across client portfolios." },
-  { year: "2024", title: "Full Ecosystem Live", desc: "All seven service domains fully operational. 320+ successful projects. $12.4M in documented client savings. The ecosystem is complete." },
+interface TimelineItem {
+  year: string;
+  title: string;
+  desc: string;
+  icon: LucideIcon;
+}
+
+const TIMELINE: TimelineItem[] = [
+  { year: "2018", title: "The Spark", desc: "LucenEdge was founded with a single belief: that most businesses are underserved by specialists who can't see the whole picture.", icon: Sparkles },
+  { year: "2019", title: "First 10 Clients", desc: "Rapid growth through referrals alone. Our first AI/ML project generated $400K in savings for a logistics client. Word spread fast.", icon: Users },
+  { year: "2020", title: "Accounting Practice Launched", desc: "Recognizing that technical excellence alone wasn't enough — we added financial services to close the loop between tech investment and business outcomes.", icon: Calculator },
+  { year: "2021", title: "Staffing Division Opens", desc: "Client demand for talent recommendations led us to build a formal staffing practice. 40 placements in year one.", icon: Award },
+  { year: "2022", title: "Global Expansion", desc: "Opened delivery centers in 3 new countries. Expanded to serve clients across North America, Europe, and the Middle East.", icon: Globe },
+  { year: "2023", title: "AI Practice Matures", desc: "Launched dedicated AI/ML practice with 12 PhD-level researchers. 47 production AI systems deployed across client portfolios.", icon: Brain },
+  { year: "2024", title: "Full Ecosystem Live", desc: "All seven service domains fully operational. 320+ successful projects. $12.4M in documented client savings. The ecosystem is complete.", icon: Rocket },
 ];
 
-const VALUES = [
-  { title: "Breadth + Depth", desc: "We refuse to be generalists who know nothing or specialists who can't see beyond their domain. We master both." },
-  { title: "Outcome Obsession", desc: "We don't measure success in deliverables. We measure it in your metrics — revenue, savings, speed, satisfaction." },
-  { title: "Radical Transparency", desc: "You'll always know exactly where your project stands. No spin, no surprises, no excuses." },
-  { title: "Long-Term Thinking", desc: "We build for longevity. The code, the models, the hires, the financial structures — all designed to compound." },
+interface ValueItem {
+  title: string;
+  desc: string;
+  icon: LucideIcon;
+}
+
+const VALUES: ValueItem[] = [
+  { title: "Breadth + Depth", desc: "We refuse to be generalists who know nothing or specialists who can't see beyond their domain. We master both.", icon: Focus },
+  { title: "Outcome Obsession", desc: "We don't measure success in deliverables. We measure it in your metrics — revenue, savings, speed, satisfaction.", icon: BarChart3 },
+  { title: "Radical Transparency", desc: "You'll always know exactly where your project stands. No spin, no surprises, no excuses.", icon: Eye },
+  { title: "Long-Term Thinking", desc: "We build for longevity. The code, the models, the hires, the financial structures — all designed to compound.", icon: Zap },
 ];
 
 export default function AboutPage() {
@@ -74,29 +92,38 @@ export default function AboutPage() {
           <div className="absolute left-8 lg:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--service-accent)] via-white/10 to-transparent" />
 
           <div className="space-y-16">
-            {TIMELINE.map((item, i) => (
-              <motion.div
-                key={item.year}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07 }}
-                className={`relative flex gap-8 lg:gap-0 ${i % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"}`}
-              >
-                {/* Content */}
-                <div className={`w-full lg:w-1/2 pl-16 lg:pl-0 ${i % 2 === 0 ? "lg:pr-16 lg:text-right" : "lg:pl-16"}`}>
-                  <span className="text-label mb-2 block">{item.year}</span>
-                  <h3 className="font-display text-2xl font-light text-platinum mb-3">{item.title}</h3>
-                  <p className="text-platinum-dim leading-relaxed">{item.desc}</p>
-                </div>
+            {TIMELINE.map((item, i) => {
+              const IconComponent = item.icon;
+              return (
+                <motion.div
+                  key={item.year}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.07 }}
+                  className={`relative flex gap-8 lg:gap-0 ${i % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"}`}
+                >
+                  {/* Content */}
+                  <div className={`w-full lg:w-1/2 pl-16 lg:pl-0 ${i % 2 === 0 ? "lg:pr-16 lg:text-right" : "lg:pl-16"}`}>
+                    <div className={`flex flex-col ${i % 2 === 0 ? "lg:items-end text-left lg:text-right" : "lg:items-start text-left"}`}>
+                      <div className="flex items-center gap-3 mb-3">
+                        {i % 2 !== 0 && <IconComponent size={20} className="text-[var(--service-accent)] opacity-60" strokeWidth={1.5} />}
+                        <span className="text-label">{item.year}</span>
+                        {i % 2 === 0 && <IconComponent size={20} className="text-[var(--service-accent)] opacity-60" strokeWidth={1.5} />}
+                      </div>
+                      <h3 className="font-display text-2xl font-light text-platinum mb-3">{item.title}</h3>
+                      <p className="text-platinum-dim leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
 
-                {/* Center dot */}
-                <div className="absolute left-8 lg:left-1/2 top-1 -translate-x-1/2 w-4 h-4 rounded-full bg-[var(--service-accent)] border-2 border-obsidian" />
+                  {/* Center dot */}
+                  <div className="absolute left-8 lg:left-1/2 top-1 -translate-x-1/2 w-4 h-4 rounded-full bg-[var(--service-accent)] border-2 border-obsidian" />
 
-                {/* Spacer for opposite side */}
-                <div className="hidden lg:block lg:w-1/2" />
-              </motion.div>
-            ))}
+                  {/* Spacer for opposite side */}
+                  <div className="hidden lg:block lg:w-1/2" />
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -124,20 +151,30 @@ export default function AboutPage() {
           </motion.h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {VALUES.map((value, i) => (
-              <motion.div
-                key={value.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="glass rounded-2xl p-8"
-              >
-                <div className="w-8 h-[2px] bg-[var(--service-accent)] mb-6 rounded-full" />
-                <h3 className="font-display text-xl font-light text-platinum mb-3">{value.title}</h3>
-                <p className="text-sm text-platinum-dim leading-relaxed">{value.desc}</p>
-              </motion.div>
-            ))}
+            {VALUES.map((value, i) => {
+              const IconComponent = value.icon;
+              return (
+                <motion.div
+                  key={value.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="glass rounded-2xl p-8 group hover:bg-white/5 transition-colors"
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-[var(--service-accent)]/10 border border-[var(--service-accent)]/30 group-hover:bg-[var(--service-accent)]/20 transition-all">
+                      <IconComponent size={20} className="text-[var(--service-accent)]" strokeWidth={1.5} />
+                    </div>
+                    <div className="h-[1px] flex-1 bg-white/10 group-hover:bg-[var(--service-accent)]/30 transition-all" />
+                  </div>
+                  <h3 className="font-display text-xl font-light text-platinum mb-3 group-hover:text-[var(--service-accent)] transition-colors">
+                    {value.title}
+                  </h3>
+                  <p className="text-sm text-platinum-dim leading-relaxed">{value.desc}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

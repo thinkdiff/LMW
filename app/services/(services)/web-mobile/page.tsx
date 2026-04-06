@@ -18,7 +18,7 @@ export default function WebMobilePage() {
       description="We craft digital experiences that users love, from pixel-perfect interfaces to blazing-fast backends. Whether it's a consumer app, enterprise platform, or e-commerce store — we build it to convert, retain, and delight."
       stats={[
         { value: "180+", label: "Apps launched" },
-        { value: "4.8★", label: "Avg App Store rating" },
+        { value: "4.8", label: "Avg App Store rating" },
         { value: "2.8s", label: "Avg load time" },
       ]}
       microServices={[
