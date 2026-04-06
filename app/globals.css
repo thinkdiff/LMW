@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+/* ─── CSS Variables ─────────────────────────────────────── */
+:root {
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Base colors */
+  --obsidian: #07070F;
+  --obsidian-light: #0D0D1A;
+  --obsidian-mid: #12121F;
+  --platinum: #E8E8F0;
+  --platinum-dim: #9090A8;
+
+  /* Service accent (changes per page) */
+  --service-accent: #00D4FF;
+  --service-accent-rgb: 0, 212, 255;
+
+  /* Brand */
+  --lucen-gold: #D4AF37;
+  --lucen-blue: #00D4FF;
+
+  /* Spacing */
+  --section-padding: clamp(4rem, 10vw, 10rem);
+}
+
+/* ─── Base Styles ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--obsidian);
+  color: var(--platinum);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  cursor: none; /* Custom cursor */
+}
+
+/* ─── Custom Scrollbar ───────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--obsidian); }
+::-webkit-scrollbar-thumb {
+  background: var(--service-accent);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--lucen-gold); }
+
+/* ─── Custom Cursor ──────────────────────────────────────── */
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--service-accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transition: transform 0.1s ease, background 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(var(--service-accent-rgb), 0.5);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99998;
+  transition: all 0.15s ease, background 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.cursor-ring.hovering {
+  width: 60px;
+  height: 60px;
+  background: rgba(var(--service-accent-rgb), 0.08);
+  border-color: var(--service-accent);
+}
+
+/* ─── Grain Overlay ──────────────────────────────────────── */
+.grain-overlay {
+  position: fixed;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.035;
+  animation: grain 0.5s steps(1) infinite;
+}
+
+/* ─── Typography Scale ───────────────────────────────────── */
+.text-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 9rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.text-display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 6rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.text-display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.text-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--service-accent);
+}
+
+/* ─── Glow Effects ───────────────────────────────────────── */
+.glow-accent {
+  box-shadow: 0 0 30px rgba(var(--service-accent-rgb), 0.3),
+              0 0 60px rgba(var(--service-accent-rgb), 0.15);
+}
+
+.glow-text {
+  text-shadow: 0 0 40px rgba(var(--service-accent-rgb), 0.6);
+}
+
+.glow-border {
+  border: 1px solid rgba(var(--service-accent-rgb), 0.3);
+  box-shadow: inset 0 0 20px rgba(var(--service-accent-rgb), 0.05),
+              0 0 20px rgba(var(--service-accent-rgb), 0.1);
+}
+
+/* ─── Glass Morphism ─────────────────────────────────────── */
+.glass {
+  background: rgba(13, 13, 26, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(13, 13, 26, 0.85);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Service Page Accent Overrides ─────────────────────── */
+[data-service="software"] {
+  --service-accent: #0066FF;
+  --service-accent-rgb: 0, 102, 255;
+}
+[data-service="web-mobile"] {
+  --service-accent: #7B2FFF;
+  --service-accent-rgb: 123, 47, 255;
+}
+[data-service="automation"] {
+  --service-accent: #00D4C8;
+  --service-accent-rgb: 0, 212, 200;
+}
+[data-service="ai-services"] {
+  --service-accent: #C8C8FF;
+  --service-accent-rgb: 200, 200, 255;
+}
+[data-service="ai-ml"] {
+  --service-accent: #FFB800;
+  --service-accent-rgb: 255, 184, 0;
+}
+[data-service="accounting"] {
+  --service-accent: #00C896;
+  --service-accent-rgb: 0, 200, 150;
+}
+[data-service="staffing"] {
+  --service-accent: #FF8C42;
+  --service-accent-rgb: 255, 140, 66;
+}
+
+/* ─── Ticker Animation ───────────────────────────────────── */
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-content {
+  display: inline-flex;
+  animation: ticker 60s linear infinite;
+}
+.ticker-content:hover { animation-play-state: paused; }
+
+/* ─── Magnetic Button ────────────────────────────────────── */
+.magnetic {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ─── Section Transitions ────────────────────────────────── */
+.section-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.section-fade.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Diagonal Clip ──────────────────────────────────────── */
+.clip-diagonal-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+}
+.clip-diagonal-top {
+  clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+}
+.clip-diagonal-both {
+  clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
+}
+
+/* ─── Line Decorators ────────────────────────────────────── */
+.line-accent {
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--service-accent);
+  vertical-align: middle;
+  margin-right: 12px;
+}
+
+/* ─── Loader ─────────────────────────────────────────────── */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--obsidian);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ─── Utility ────────────────────────────────────────────── */
+.no-select { user-select: none; }
+.full-bleed { width: 100vw; margin-left: calc(-50vw + 50%); }
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-mono-custom { font-family: var(--font-mono); }
+}
